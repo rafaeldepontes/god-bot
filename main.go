@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -9,10 +8,7 @@ import (
 )
 
 func init() {
-	if err := godotenv.Load(".env"); err != nil {
-		panic(fmt.Errorf("[ERROR] couldn't initialize the project, problem with .env: %w", err))
-	}
-
+	_ = godotenv.Load(".env")
 	bot.BotToken = os.Getenv("DISCORD_KEY")
 }
 
