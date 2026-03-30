@@ -2,6 +2,7 @@ package bot
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"os/signal"
 
@@ -24,7 +25,7 @@ func Run() {
 	}
 	defer s.Close()
 
-	fmt.Println("Bot running...")
+	log.Println("Bot running...")
 
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt)
@@ -36,12 +37,12 @@ func deleteMessage(s *discordgo.Session, m *discordgo.MessageCreate) {
 		return
 	}
 
-	fmt.Printf("Message received: %s\n", m.Content)
+	log.Printf("Message received: %s\n", m.Content)
 
 	switch {
 	case m.MentionEveryone:
 		if err := s.ChannelMessageDelete(m.ChannelID, m.ID); err != nil {
-			fmt.Printf("[WARN] couldn't delete the message: %s\n", err.Error())
+			log.Printf("[WARN] couldn't delete the message: %s\n", err.Error())
 		}
 	}
 }
