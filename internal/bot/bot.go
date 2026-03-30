@@ -37,11 +37,10 @@ func deleteMessage(s *discordgo.Session, m *discordgo.MessageCreate) {
 		return
 	}
 
-	log.Printf("Message received: %s\n", m.Content)
-
 	switch {
 	case m.MentionEveryone:
 		if err := s.ChannelMessageDelete(m.ChannelID, m.ID); err != nil {
+			log.Printf("Everyone received -> %s\n", m.Content)
 			log.Printf("[WARN] couldn't delete the message: %s\n", err.Error())
 		}
 	}
