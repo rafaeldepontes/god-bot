@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
-	"strings"
 
 	"github.com/bwmarrin/discordgo"
 )
@@ -40,7 +39,7 @@ func deleteMessage(s *discordgo.Session, m *discordgo.MessageCreate) {
 	fmt.Printf("Message received: %s\n", m.Content)
 
 	switch {
-	case strings.Contains(m.Content, "@everyone"):
+	case m.MentionEveryone:
 		if err := s.ChannelMessageDelete(m.ChannelID, m.ID); err != nil {
 			fmt.Printf("[WARN] couldn't delete the message: %s\n", err.Error())
 		}
